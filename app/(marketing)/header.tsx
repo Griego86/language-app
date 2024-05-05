@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button"
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
+import { Loader } from "lucide-react"
 import Image from "next/image"
 
 export const Header = () => {
@@ -15,7 +18,25 @@ export const Header = () => {
             Camino App
           </h1>
         </div>
-        
+        <ClerkLoading>
+          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+        </ClerkLoading>
+        <ClerkLoaded>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton
+              mode="modal"
+              forceRedirectUrl="/learn"
+              signUpForceRedirectUrl="/learn"
+            >
+              <Button size="lg" variant="ghost">
+                Login
+              </Button>
+            </SignInButton>
+          </SignedOut>
+        </ClerkLoaded>
       </div>
     </header>
   )
